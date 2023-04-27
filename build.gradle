@@ -15,6 +15,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-config-yaml'
 
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"

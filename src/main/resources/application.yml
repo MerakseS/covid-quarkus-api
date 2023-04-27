@@ -1,0 +1,8 @@
+quarkus:
+  http:
+    cors:
+      ~: true
+      origins: http://localhost:4200
+  rest-client:
+    com.innowise.covidquarkusapi.client.CovidApiClient:
+      url: https://api.covid19api.com
