@@ -21,6 +21,8 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
+    testImplementation 'io.rest-assured:rest-assured'
 }
 
 group 'com.innowise'

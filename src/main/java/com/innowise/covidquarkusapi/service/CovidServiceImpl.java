@@ -12,6 +12,7 @@ import com.innowise.covidquarkusapi.model.MinMaxCases;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.ws.rs.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Singleton
@@ -32,9 +33,10 @@ public class CovidServiceImpl implements CovidService {
     @Override
     public MinMaxCases getMinMaxCases(String country, String from, String to) {
         List<CovidCases> covidCasesList = covidApiClient.getCovidCases(country, from, to);
-        List<CovidCases> filteredCovidCasesList = covidCasesList.stream()
-            .filter(covidCases -> covidCases.getProvince().isEmpty())
-            .toList();
+        List<CovidCases> filteredCovidCasesList = filterCovidCasesOfProvinces(covidCasesList);
+        if (covidCasesList.isEmpty()) {
+            throw new NotFoundException();
+        }
 
         MinMaxCases minMaxCases = calculateMinMaxCases(filteredCovidCasesList);
         log.info("Successfully calculate Minimal and maximum covid cases. {}", minMaxCases);
@@ -63,5 +65,11 @@ public class CovidServiceImpl implements CovidService {
 
         return new MinMaxCases(covidCasesList.get(0).getCountry(),
             minCases, minCasesDate, maxCases, maxCasesDate);
+    }
+
+    private List<CovidCases> filterCovidCasesOfProvinces(List<CovidCases> covidCasesList) {
+        return covidCasesList.stream()
+            .filter(covidCases -> covidCases.getProvince().isEmpty())
+            .toList();
     }
 }

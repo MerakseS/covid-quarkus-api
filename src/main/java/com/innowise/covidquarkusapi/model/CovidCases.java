@@ -4,9 +4,11 @@ import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CovidCases {
 
     @JsonSetter("Country")
